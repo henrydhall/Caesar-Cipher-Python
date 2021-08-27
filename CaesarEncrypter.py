@@ -6,7 +6,7 @@
 #Dependencies: 
 """
 
-import string, collections
+import string, collections, sys
 
 def caesarEncrypt( unencryptedString, rotateNum ):
     #Create deques of characters.
@@ -19,17 +19,16 @@ def caesarEncrypt( unencryptedString, rotateNum ):
     #Create translation table and perform the translation.
     translateTable = unencryptedString.maketrans( rotatedCharactersString, charactersString )
     encryptedString = unencryptedString.translate( translateTable )
-    print(encryptedString)
-    
-    
-def playAround():
-    txt = "Good night Sam!"
-    x = "Goda"
-    y = "abcx"
-    z = "odnght"
-    mytable = txt.maketrans(x, y)
-    print(txt.translate(mytable))
+    return encryptedString
 
 if __name__ == "__main__":
-    caesarEncrypt("This is Henry's fancy thing!",10)
-    #playAround()
+    print( sys.argv )
+    if len(sys.argv) < 3:
+        print("Usage: python CaesarEncrypter.py [\"text to encrypt\"] [rotation]")
+        print("Usage: python CaesarEncrypter.py -i [file to encrypt] [rotation]")
+        print("Usage: python CaesarEncrypter.py -i [file to encrypt] -o [file to output to] [rotation]")
+    elif len(sys.argv) == 3:
+        print( "Encrypted text: " + caesarEncrypt( sys.argv[1], int(sys.argv[2])) )
+    else:
+        print("TODO: lots")
+    
