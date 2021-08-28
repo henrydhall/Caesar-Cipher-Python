@@ -10,8 +10,14 @@ Rotation: how many places you want to alphabet rotated.
 ## Decrypt Text
 Not yet functioning. As a work around run the encrypter with the negative rotation that encrypted the text.
 
-### Features
+# Features
 Currently only encrypting text from the commandline and printing it.
 
-Test.
-Test.
+# Future Updates
+Finish README
+
+Encrypt text from files.
+
+Encrypt text and send to file.
+
+All of the decrypter needs to be built.
