@@ -14,3 +14,4 @@ Not yet functioning. As a work around run the encrypter with the negative rotati
 Currently only encrypting text from the commandline and printing it.
 
 Test.
+Test.
