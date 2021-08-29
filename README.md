@@ -16,7 +16,9 @@ Rotation: how many places you want the alphabet rotated.
 Not yet functioning. As a work around run the encrypter with the negative rotation that encrypted the text.
 
 # Features
-Currently only encrypting text from the commandline and printing it.
+Encrypt text from the commandline and print to command line.
+
+Encrypte text from text file and print to command line.
 
 # Future Updates
 Finish README
