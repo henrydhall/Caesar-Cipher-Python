@@ -7,6 +7,7 @@
 """
 
 import string, collections, sys
+from pathlib import Path
 
 def caesarEncrypt( unencryptedString, rotateNum ):
     #Create deques of characters.
@@ -21,14 +22,24 @@ def caesarEncrypt( unencryptedString, rotateNum ):
     encryptedString = unencryptedString.translate( translateTable )
     return encryptedString
 
+def readFromFile(fileName):
+    """
+    # This reads text from a file and returns contents as a string.
+    """
+    fileToRead = Path(fileName)
+    return fileToRead.read_text()
+
 if __name__ == "__main__":
-    print( sys.argv )
+    print( sys.argv ) #Temporary to keep track of command line input
     if len(sys.argv) < 3:
         print("Usage: python CaesarEncrypter.py [\"text to encrypt\"] [rotation]")
         print("Usage: python CaesarEncrypter.py -i [file to encrypt] [rotation]")
         print("Usage: python CaesarEncrypter.py -i [file to encrypt] -o [file to output to] [rotation]")
     elif len(sys.argv) == 3:
         print( "Encrypted text: " + caesarEncrypt( sys.argv[1], int(sys.argv[2])) )
+        #print( "Decrypted text: " + caesarEncrypt( caesarEncrypt( sys.argv[1], int(sys.argv[2])) , - int(sys.argv[2]) ))
+    elif len(sys.argv) == 4:
+        print( "Encrypted text: " + caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3])))
     else:
         print("TODO: lots")
     
