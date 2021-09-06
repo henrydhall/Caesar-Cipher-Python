@@ -13,18 +13,16 @@ Text to encrypt: whatever you want to encrypt. Use quotes around.
 Rotation: how many places you want the alphabet rotated.
 
 ## Decrypt Text
-Not yet functioning. As a work around run the encrypter with the negative rotation that encrypted the text.
+Operating, but you'll have to use your own interface to make it work for now.
 
 # Features
 Encrypt text from the commandline and print to command line.
 
-Encrypte text from text file and print to command line.
+Encrypt text from text file and print to command line.
 
 # Future Updates
 Finish README
 
-Encrypt text and send to file.
+Set up appropriate interface to actually make it work.
 
-All of the decrypter needs to be built.
-
-Send text to clip board.
+Send text to clip board?
