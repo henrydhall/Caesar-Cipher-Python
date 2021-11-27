@@ -85,13 +85,13 @@ if __name__ == "__main__":
         printUsage()
 
     elif len(sys.argv) == 4:
-        if sys.argv[1] == '-e':
+        if sys.argv[1].startswith('-e'):
             print( "Encrypted text: " + caesarEncrypt( sys.argv[2], int(sys.argv[3])) )
-        if sys.argv[1] == '-ei':
+        if sys.argv[1].startswith('-ei'):
             print( "Encrypted text: " + caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
-        elif sys.argv[1] == '-d':
+        elif sys.argv[1].startswith('-d'):
             print( "Decrypted text: " + caesarDecrypt( sys.argv[2], int(sys.argv[3])) )
-        if sys.argv[1] == '-di':
+        if sys.argv[1].startswith('-di'):
             print( "Encrypted text: " + caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
     else:
         printUsage()
