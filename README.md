@@ -23,6 +23,4 @@ Encrypt text from text file and print to command line.
 # Future Updates
 Finish README
 
-Set up appropriate interface to actually make it work.
-
 Send text to clip board?

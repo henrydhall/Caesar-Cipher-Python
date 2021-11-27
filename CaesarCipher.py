@@ -20,12 +20,15 @@ def caesarEncrypt( unencryptedString, rotateNum ):
     charactersDeque = collections.deque( string.printable )
     rotatedCharactersDeque = collections.deque( string.printable )
     rotatedCharactersDeque.rotate(rotateNum)
+
     #Make the deques strings for the translations.
     charactersString = "".join(list(charactersDeque))
     rotatedCharactersString = "".join(list(rotatedCharactersDeque))
+
     #Create translation table and perform the translation.
     translateTable = unencryptedString.maketrans( rotatedCharactersString, charactersString )
     encryptedString = unencryptedString.translate( translateTable )
+
     return encryptedString
 
 def readFromFile(fileName):
@@ -54,30 +57,42 @@ def caesarDecrypt(encryptedString, rotateNum):
     # Accepts an encrypted string, and the rotation that was used to encrypt it.
     # Returns the decrypted string.
     """
+
     #Create deques of characters.
     charactersDeque = collections.deque( string.printable )
     rotatedCharactersDeque = collections.deque( string.printable )
     rotatedCharactersDeque.rotate(-rotateNum)
+
     #Make the deques strings for the translations.
     charactersString = "".join(list(charactersDeque))
     rotatedCharactersString = "".join(list(rotatedCharactersDeque))
+
     #Create translation table and perform the translation.
     translateTable = encryptedString.maketrans( rotatedCharactersString, charactersString )
     decryptedString = encryptedString.translate( translateTable )
+
     return decryptedString
 
+def printUsage():
+    print("Usage: python CaesarEncrypter.py -e [\"text to encrypt\"] [rotation]")
+    print("Usage: python CaesarEncrypter.py -ei [file to encrypt] [rotation]")
+    print("Usage: python CaesarEncrypter.py -d [\"text to decrypt\"] [rotation]")
+    print("Usage: python CaesarEncrypter.py -di [file to decrypt] [rotation]")
+
 if __name__ == "__main__":
-    print( sys.argv ) #Temporary to keep track of command line input
-    #TODO: put this all in another file.
+
     if len(sys.argv) < 3:
-        print("Usage: python CaesarEncrypter.py [\"text to encrypt\"] [rotation]")
-        print("Usage: python CaesarEncrypter.py -i [file to encrypt] [rotation]")
-        print("Usage: python CaesarEncrypter.py -i [file to encrypt] -o [file to output to] [rotation]")
-    elif len(sys.argv) == 3:
-        print( "Encrypted text: " + caesarEncrypt( sys.argv[1], int(sys.argv[2])) )
-        #print( "Decrypted text: " + caesarEncrypt( caesarEncrypt( sys.argv[1], int(sys.argv[2])) , - int(sys.argv[2]) ))
+        printUsage()
+
     elif len(sys.argv) == 4:
-        print( "Encrypted text: " + caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3])))
+        if sys.argv[1] == '-e':
+            print( "Encrypted text: " + caesarEncrypt( sys.argv[2], int(sys.argv[3])) )
+        if sys.argv[1] == '-ei':
+            print( "Encrypted text: " + caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
+        elif sys.argv[1] == '-d':
+            print( "Decrypted text: " + caesarDecrypt( sys.argv[2], int(sys.argv[3])) )
+        if sys.argv[1] == '-di':
+            print( "Encrypted text: " + caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
     else:
-        print("TODO: lots")
+        printUsage()
     
