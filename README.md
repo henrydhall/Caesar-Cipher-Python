@@ -11,6 +11,8 @@ python CaesarEncrypter.py -e \[Text to encrypt] \[rotation] or
 
 python CaesarEncrypter.py -ei \[File to encrypt] \[rotation]
 
+If outputting to a file, use the o flag to remove extra text. Ex: -eio, -do, -dio.
+
 Text to encrypt: whatever you want to encrypt. Use quotes around.
 
 Rotation: how many places you want the alphabet rotated.
