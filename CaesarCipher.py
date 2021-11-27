@@ -92,7 +92,7 @@ if __name__ == "__main__":
         elif sys.argv[1] == '-d':
             print( "Decrypted text: " + caesarDecrypt( sys.argv[2], int(sys.argv[3])) )
         if sys.argv[1] == '-di':
-            print( "Encrypted text: " + caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
+            print( "Decrypted text: " + caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
     else:
         printUsage()
     
