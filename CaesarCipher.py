@@ -73,11 +73,17 @@ def caesarDecrypt(encryptedString, rotateNum):
 
     return decryptedString
 
+def getOutput( flags, text ):
+    if flags.endswith('o'):
+        return text
+    elif flags.startswith('-e'):
+        return 'Encrypted text: ' + text
+    elif flags.startswith('-d'):
+        return 'Decrypted text: ' + text
+
 def printUsage():
-    print("Usage: python CaesarEncrypter.py -e [\"text to encrypt\"] [rotation]")
-    print("Usage: python CaesarEncrypter.py -ei [file to encrypt] [rotation]")
-    print("Usage: python CaesarEncrypter.py -d [\"text to decrypt\"] [rotation]")
-    print("Usage: python CaesarEncrypter.py -di [file to decrypt] [rotation]")
+    print("Usage: python CaesarEncrypter.py -[flags] [\"text\"] [rotation]")
+    print("Usage: python CaesarEncrypter.py -[flags] [file] [rotation]")
 
 if __name__ == "__main__":
 
@@ -85,14 +91,19 @@ if __name__ == "__main__":
         printUsage()
 
     elif len(sys.argv) == 4:
-        if sys.argv[1].startswith('-e'):
-            print( "Encrypted text: " + caesarEncrypt( sys.argv[2], int(sys.argv[3])) )
+        encryptedText = ''
         if sys.argv[1].startswith('-ei'):
-            print( "Encrypted text: " + caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
+            encryptedText = caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3]))
+        elif sys.argv[1].startswith('-e'):
+            encryptedText = caesarEncrypt( sys.argv[2], int(sys.argv[3]))
+        elif sys.argv[1] == '-di':
+            encryptedText = caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) 
         elif sys.argv[1].startswith('-d'):
-            print( "Decrypted text: " + caesarDecrypt( sys.argv[2], int(sys.argv[3])) )
-        if sys.argv[1] == '-di':
-            print( "Decrypted text: " + caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) )
+            encryptedText = caesarDecrypt( sys.argv[2], int(sys.argv[3]))
+        
+        encryptedText = getOutput( sys.argv[1], encryptedText )
+        print(encryptedText)
+
     else:
         printUsage()
     

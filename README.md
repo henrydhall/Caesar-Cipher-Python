@@ -11,7 +11,7 @@ python CaesarEncrypter.py -e \[Text to encrypt] \[rotation] or
 
 python CaesarEncrypter.py -ei \[File to encrypt] \[rotation]
 
-If outputting to a file, use the o flag to remove extra text. Ex: -eio, -do, -dio.
+If outputting to a file, use the o flag to remove extra text. Ex: -eio, -do, etc.
 
 Text to encrypt: whatever you want to encrypt. Use quotes around.
 
@@ -33,6 +33,4 @@ Decrypt text from the commandline and print to command line.
 Decrypt text from text file and print to command line.
 
 # Future Updates
-Finish README
-
 Send text to clip board?
