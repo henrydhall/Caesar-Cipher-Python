@@ -19,7 +19,7 @@ File to encrypt: the file whose contents you want to encrypt.
 
 ## Decrypt Text
 
-Use -d and -di flags to decrypt text.
+Use -d and -di flags to decrypt text in place of -e and -ei flags.
 
 # Features
 Encrypt text from the commandline and print to command line.
