@@ -1,0 +1,148 @@
+'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c'
+# Caesar-Cipher-Python
+Simple Caesar Cipher in Python to encrypt and decrypt text.
+
+# Description
+Using an alphabet of 100 printable characters, the program will accept input from the command line or text files to encrypt and print to the command line.
+# Usage
+## Encrypt Text
+In command line enter 
+
+python CaesarEncrypter.py -e \[Text to encrypt] \[rotation] or
+
+python CaesarEncrypter.py -ei \[File to encrypt] \[rotation]
+
+If outputting to a file, use the o flag to remove extra text. Ex: -eio, -do, etc.
+
+Text to encrypt: whatever you want to encrypt. Use quotes around.
+
+Rotation: how many places you want the alphabet rotated.
+
+File to encrypt: the file whose contents you want to encrypt.
+
+## Decrypt Text
+
+Use -d and -di flags to decrypt text in place of -e and -ei flags.
+
+# Features
+Encrypt text from the commandline and print to command line.
+
+Encrypt text from text file and print to command line.
+
+Decrypt text from the commandline and print to command line.
+
+Decrypt text from text file and print to command line.
+
+# Future Updates
+Send text to clip board?
+
+#!python
+"""
+#CaesarEncrypter
+#Created 8/26/2021 by Henry Hall
+#Simple demonstration of a Caesar Cipher encrypter.
+#Dependencies: 
+"""
+
+import string, collections, sys
+from pathlib import Path
+
+def caesarEncrypt( unencryptedString, rotateNum ):
+    """
+    # A simple Caesar Cipher is implemented with a 100 character alphabet.
+    # It inputs the string that you want encrypted, and the rotation you want performed on it.
+    # It returns an encrypted string.
+    # This is where the magic happens.
+    """
+    #Create deques of characters.
+    alphabet = string.ascii_letters + string.digits + string.punctuation + string.whitespace
+    charactersDeque = collections.deque( alphabet )
+    rotatedCharactersDeque = collections.deque( alphabet )
+    rotatedCharactersDeque.rotate(rotateNum)
+
+    #Make the deques strings for the translations.
+    charactersString = "".join(list(charactersDeque))
+    rotatedCharactersString = "".join(list(rotatedCharactersDeque))
+
+    #Create translation table and perform the translation.
+    translateTable = unencryptedString.maketrans( rotatedCharactersString, charactersString )
+    encryptedString = unencryptedString.translate( translateTable )
+
+    return encryptedString
+
+def readFromFile(fileName):
+    """
+    # This reads text from a file and returns contents as a string.
+    # Returns "" if no file found.
+    """
+    try:
+        fileToRead = Path(fileName)
+        fileContents = fileToRead.read_text()
+        return fileContents
+    except FileNotFoundError:
+        print(f"FileNotFoundError: {fileName} doesn't exist.")
+        return ""
+
+def writeToFile(fileName, writeString):
+    """
+    # Writes writeString to fileName.
+    # Returns nothing.
+    """
+    fileToWrite = Path(fileName)
+    fileToWrite.write_text(writeString)
+
+def caesarDecrypt(encryptedString, rotateNum):
+    """
+    # Accepts an encrypted string, and the rotation that was used to encrypt it.
+    # Returns the decrypted string.
+    """
+
+    #Create deques of characters.
+    alphabet = string.ascii_letters + string.digits + string.punctuation + string.whitespace
+    charactersDeque = collections.deque( alphabet )
+    rotatedCharactersDeque = collections.deque( alphabet )
+    rotatedCharactersDeque.rotate(-rotateNum)
+
+    #Make the deques strings for the translations.
+    charactersString = "".join(list(charactersDeque))
+    rotatedCharactersString = "".join(list(rotatedCharactersDeque))
+
+    #Create translation table and perform the translation.
+    translateTable = encryptedString.maketrans( rotatedCharactersString, charactersString )
+    decryptedString = encryptedString.translate( translateTable )
+
+    return decryptedString
+
+def getOutput( flags, text ):
+    if flags.endswith('o'):
+        return text
+    elif flags.startswith('-e'):
+        return 'Encrypted text: ' + text
+    elif flags.startswith('-d'):
+        return 'Decrypted text: ' + text
+
+def printUsage():
+    print("Usage: python CaesarEncrypter.py -[flags] [\"text\"] [rotation]")
+    print("Usage: python CaesarEncrypter.py -[flags] [file] [rotation]")
+
+if __name__ == "__main__":
+
+    if len(sys.argv) < 3:
+        printUsage()
+
+    elif len(sys.argv) == 4:
+        encryptedText = ''
+        if sys.argv[1].startswith('-ei'):
+            encryptedText = caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3]))
+        elif sys.argv[1].startswith('-e'):
+            encryptedText = caesarEncrypt( sys.argv[2], int(sys.argv[3]))
+        elif sys.argv[1].startswith('-di'):
+            encryptedText = caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) 
+        elif sys.argv[1].startswith('-d'):
+            encryptedText = caesarDecrypt( sys.argv[2], int(sys.argv[3]))
+        encryptedText = getOutput(sys.argv[1],encryptedText)
+        print(encryptedText)
+
+    else:
+        printUsage()
+    
