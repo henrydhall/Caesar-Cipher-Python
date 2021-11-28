@@ -17,8 +17,9 @@ def caesarEncrypt( unencryptedString, rotateNum ):
     # This is where the magic happens.
     """
     #Create deques of characters.
-    charactersDeque = collections.deque( string.printable )
-    rotatedCharactersDeque = collections.deque( string.printable )
+    alphabet = string.ascii_letters + string.digits + string.punctuation + string.whitespace
+    charactersDeque = collections.deque( alphabet )
+    rotatedCharactersDeque = collections.deque( alphabet )
     rotatedCharactersDeque.rotate(rotateNum)
 
     #Make the deques strings for the translations.
@@ -59,8 +60,9 @@ def caesarDecrypt(encryptedString, rotateNum):
     """
 
     #Create deques of characters.
-    charactersDeque = collections.deque( string.printable )
-    rotatedCharactersDeque = collections.deque( string.printable )
+    alphabet = string.ascii_letters + string.digits + string.punctuation + string.whitespace
+    charactersDeque = collections.deque( alphabet )
+    rotatedCharactersDeque = collections.deque( alphabet )
     rotatedCharactersDeque.rotate(-rotateNum)
 
     #Make the deques strings for the translations.
@@ -96,12 +98,11 @@ if __name__ == "__main__":
             encryptedText = caesarEncrypt( readFromFile(sys.argv[2]), int(sys.argv[3]))
         elif sys.argv[1].startswith('-e'):
             encryptedText = caesarEncrypt( sys.argv[2], int(sys.argv[3]))
-        elif sys.argv[1] == '-di':
+        elif sys.argv[1].startswith('-di'):
             encryptedText = caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) 
         elif sys.argv[1].startswith('-d'):
             encryptedText = caesarDecrypt( sys.argv[2], int(sys.argv[3]))
-        
-        encryptedText = getOutput( sys.argv[1], encryptedText )
+        encryptedText = getOutput(sys.argv[1],encryptedText)
         print(encryptedText)
 
     else:
