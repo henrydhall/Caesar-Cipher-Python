@@ -33,4 +33,4 @@ Decrypt text from the commandline and print to command line.
 Decrypt text from text file and print to command line.
 
 # Future Updates
-Send text to clip board?
+Add brute force decryption feature.
