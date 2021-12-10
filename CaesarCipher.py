@@ -75,13 +75,24 @@ def caesarDecrypt(encryptedString, rotateNum):
 
     return decryptedString
 
+def bruteForceDecrypt( text ):
+    decryptions = ''
+    for i in range(1,100):
+        decryptions += '*'*10 + ' ' + str(i) + '\n' # Neatly separate each decryption, include key.
+        decryptions += caesarDecrypt(text,i) + '\n'
+    return decryptions
+
 def getOutput( flags, text ):
+    if flags.startswith('b'):
+        return text
+
     if flags.endswith('o'):
         return text
     elif flags.startswith('-e'):
         return 'Encrypted text: ' + text
     elif flags.startswith('-d'):
         return 'Decrypted text: ' + text
+    
 
 def printUsage():
     print("Usage: python CaesarEncrypter.py -[flags] [\"text\"] [rotation]")
@@ -89,8 +100,13 @@ def printUsage():
 
 if __name__ == "__main__":
 
-    if len(sys.argv) < 3:
-        printUsage()
+    if len(sys.argv) == 3:
+        if sys.argv[1].startswith('-bi'):
+            encryptedText = bruteForceDecrypt( readFromFile(sys.argv[2]) )
+        elif sys.argv[1].startswith('-b'):
+            encryptedText = bruteForceDecrypt( sys.argv[2] )
+
+        print(encryptedText)
 
     elif len(sys.argv) == 4:
         encryptedText = ''
@@ -102,6 +118,8 @@ if __name__ == "__main__":
             encryptedText = caesarDecrypt( readFromFile(sys.argv[2]), int(sys.argv[3])) 
         elif sys.argv[1].startswith('-d'):
             encryptedText = caesarDecrypt( sys.argv[2], int(sys.argv[3]))
+        
+
         encryptedText = getOutput(sys.argv[1],encryptedText)
         print(encryptedText)
 
