@@ -42,7 +42,7 @@ Encrypt text from the commandline or a file and print to command line.
 
 Decrypt text from the commandline or a file print to command line.
 
-Brute force decrpyt text from the commandline or a file and print to command line.
+Brute force decrypt text from the commandline or a file and print to command line.
 
 # Future Updates
 Improve brute force decryption by enabling search for keywords from file.
