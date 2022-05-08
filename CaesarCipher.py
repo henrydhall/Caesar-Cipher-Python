@@ -32,6 +32,24 @@ def caesarEncrypt( unencryptedString, rotateNum ):
 
     return encryptedString
 
+def simple_offset_encrypt(plain_text,shift):
+    cipher_text = ''
+
+    charactersDeque = collections.deque( string.ascii_lowercase )
+    rotatedCharactersDeque = collections.deque( string.ascii_lowercase )
+    rotatedCharactersDeque.rotate(shift)
+    charactersString = "".join(list(charactersDeque))
+    rotatedCharactersString = "".join(list(rotatedCharactersDeque))
+    
+    plain_text = plain_text.lower()
+    plain_text = plain_text.split(' ')
+    plain_text = ''.join(plain_text)
+
+    translateTable = plain_text.maketrans( rotatedCharactersString, charactersString )
+    cipher_text = plain_text.translate( translateTable ).upper()
+
+    return cipher_text
+
 def readFromFile(fileName):
     """
     # This reads text from a file and returns contents as a string.
